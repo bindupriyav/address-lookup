@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import multer from 'multer';
 import { config } from './config';
 import { getUspsAdapter } from './adapters/uspsAdapter';
@@ -15,6 +16,9 @@ const app = express();
 
 // Middleware: JSON body parsing
 app.use(express.json());
+
+// Serve static frontend
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware: Multer for file uploads (in-memory storage)
 const upload = multer({

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USPS Address Validation Service</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7fa; padding: 20px; }
+        h1 { text-align: center; color: #1a1a2e; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .card h2 { color: #1a1a2e; margin-bottom: 16px; font-size: 1.2rem; }
+        label { display: block; font-weight: 500; margin-bottom: 4px; color: #333; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; margin-bottom: 12px; }
+        input:focus { outline: none; border-color: #4a90d9; box-shadow: 0 0 0 2px rgba(74,144,217,0.2); }
+        .row { display: flex; gap: 12px; }
+        .row > div { flex: 1; }
+        button { background: #4a90d9; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; font-weight: 500; }
+        button:hover { background: #357abd; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .result { margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef; display: none; }
+        .result.show { display: block; }
+        .result pre { white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; color: #333; }
+        .status-valid { border-left: 4px solid #28a745; }
+        .status-invalid { border-left: 4px solid #dc3545; }
+        .status-error { border-left: 4px solid #ffc107; }
+        .tabs { display: flex; gap: 0; margin-bottom: 20px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+        .tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; background: #f8f9fa; font-weight: 500; font-size: 0.9rem; border: none; }
+        .tab.active { background: #4a90d9; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge-get { background: #d4edda; color: #155724; }
+        .badge-post { background: #cce5ff; color: #004085; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📬 USPS Address Validation Service</h1>
+        <p class="subtitle">Validate US addresses, verify zipcode-city pairs, and parse raw addresses</p>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('address')">Validate Address</button>
+            <button class="tab" onclick="switchTab('zipcode')">Zipcode-City</button>
+            <button class="tab" onclick="switchTab('parse')">Parse Address</button>
+        </div>
+
+        <!-- Validate Address Tab -->
+        <div id="tab-address" class="tab-content active">
+            <div class="card">
+                <h2><span class="badge badge-post">POST</span> /api/v1/validate/address</h2>
+                <label>Street Line 1 *</label>
+                <input type="text" id="street1" placeholder="1600 Pennsylvania Ave NW" value="1600 Pennsylvania Ave NW">
+                <label>Street Line 2</label>
+                <input type="text" id="street2" placeholder="Apt 2B (optional)">
+                <div class="row">
+                    <div>
+                        <label>City *</label>
+                        <input type="text" id="city" placeholder="Washington" value="Washington">
+                    </div>
+                    <div>
+                        <label>State *</label>
+                        <input type="text" id="state" placeholder="DC" value="DC">
+                    </div>
+                    <div>
+                        <label>Zipcode *</label>
+                        <input type="text" id="zipcode" placeholder="20500" value="20500">
+                    </div>
+                </div>
+                <button onclick="validateAddress()">Validate Address</button>
+                <div id="address-result" class="result"></div>
+            </div>
+        </div>
+
+        <!-- Zipcode-City Tab -->
+        <div id="tab-zipcode" class="tab-content">
+            <div class="card">
+                <h2><span class="badge badge-post">POST</span> /api/v1/validate/zipcode-city</h2>
+                <div class="row">
+                    <div>
+                        <label>Zipcode *</label>
+                        <input type="text" id="zip-input" placeholder="20500" value="20500">
+                    </div>
+                    <div>
+                        <label>City *</label>
+                        <input type="text" id="city-input" placeholder="Washington" value="Washington">
+                    </div>
+                </div>
+                <button onclick="verifyZipcode()">Verify Zipcode-City</button>
+                <div id="zipcode-result" class="result"></div>
+            </div>
+        </div>
+
+        <!-- Parse Tab -->
+        <div id="tab-parse" class="tab-content">
+            <div class="card">
+                <h2><span class="badge badge-post">POST</span> /api/v1/validate/parse</h2>
+                <label>Raw Address Text *</label>
+                <input type="text" id="raw-address" placeholder="1600 Pennsylvania Ave NW, Washington, DC 20500" value="1600 Pennsylvania Ave NW, Washington, DC 20500">
+                <button onclick="parseAddress()">Parse & Validate</button>
+                <div id="parse-result" class="result"></div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align:center; color:#666; font-size:0.85rem;">
+            <p><strong>API Docs:</strong> All endpoints accept JSON. This UI uses the mock USPS adapter — addresses with "INVALID" in street line will return invalid status.</p>
+            <p style="margin-top:8px;">GitHub: <a href="https://github.com/Bindupriyav/address-lookup">github.com/Bindupriyav/address-lookup</a></p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function showResult(elementId, data, status) {
+            const el = document.getElementById(elementId);
+            el.classList.add('show');
+            el.className = 'result show';
+            if (status === 'valid' || status === 'match') el.classList.add('status-valid');
+            else if (status === 'invalid' || status === 'mismatch') el.classList.add('status-invalid');
+            else el.classList.add('status-error');
+            el.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+
+        async function validateAddress() {
+            const body = {
+                street_line_1: document.getElementById('street1').value,
+                street_line_2: document.getElementById('street2').value || undefined,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zipcode: document.getElementById('zipcode').value,
+            };
+            try {
+                const res = await fetch('/api/v1/validate/address', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                showResult('address-result', data, data.status || (res.ok ? 'valid' : 'invalid'));
+            } catch (e) {
+                showResult('address-result', { error: e.message }, 'error');
+            }
+        }
+
+        async function verifyZipcode() {
+            const body = {
+                zipcode: document.getElementById('zip-input').value,
+                city: document.getElementById('city-input').value,
+            };
+            try {
+                const res = await fetch('/api/v1/validate/zipcode-city', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                showResult('zipcode-result', data, data.status || (res.ok ? 'match' : 'error'));
+            } catch (e) {
+                showResult('zipcode-result', { error: e.message }, 'error');
+            }
+        }
+
+        async function parseAddress() {
+            const body = {
+                raw_address: document.getElementById('raw-address').value,
+            };
+            try {
+                const res = await fetch('/api/v1/validate/parse', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+                showResult('parse-result', data, data.status || 'error');
+            } catch (e) {
+                showResult('parse-result', { error: e.message }, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
