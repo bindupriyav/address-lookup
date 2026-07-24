@@ -14,6 +14,9 @@ COPY tsconfig.json ./
 # Compile TypeScript
 RUN npx tsc
 
+# Copy static public files to dist
+RUN cp -r src/public dist/public
+
 # Stage 2: Production - minimal runtime image
 FROM node:20-slim
 
