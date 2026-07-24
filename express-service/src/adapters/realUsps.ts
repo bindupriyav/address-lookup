@@ -47,25 +47,15 @@ export class RealUSPSAdapter implements USPSAdapter {
         const matchedAddress = match.matchedAddress || '';
         const addressComponents = match.addressComponents || {};
 
-        const standardized: StructuredAddress = {
-          street_line_1: (
-            (addressComponents.preQualifier || '') + ' ' +
-            (addressComponents.preDirection || '') + ' ' +
-            (addressComponents.preType || '') + ' ' +
-            (addressComponents.streetName || '') + ' ' +
-            (addressComponents.suffixType || '') + ' ' +
-            (addressComponents.suffixDirection || '') + ' ' +
-            (addressComponents.suffixQualifier || '')
-          ).replace(/\s+/g, ' ').trim().toUpperCase() || matchedAddress.split(',')[0]?.trim().toUpperCase() || address.street_line_1.toUpperCase(),
-          city: (addressComponents.city || address.city).toUpperCase(),
-          state: (addressComponents.state || address.state).toUpperCase(),
-          zipcode: addressComponents.zip || address.zipcode,
-        };
+        // Parse the matched address "1600 PENNSYLVANIA AVE NW, WASHINGTON, DC, 20500"
+        const parts = matchedAddress.split(',').map((p: string) => p.trim());
 
-        // Clean up street if it came out empty
-        if (!standardized.street_line_1 || standardized.street_line_1.trim() === '') {
-          standardized.street_line_1 = matchedAddress.split(',')[0]?.trim().toUpperCase() || address.street_line_1.toUpperCase();
-        }
+        const standardized: StructuredAddress = {
+          street_line_1: parts[0] || address.street_line_1.toUpperCase(),
+          city: (addressComponents.city || parts[1] || address.city).toUpperCase(),
+          state: (addressComponents.state || parts[2] || address.state).toUpperCase(),
+          zipcode: addressComponents.zip || parts[3] || address.zipcode,
+        };
 
         return {
           original_address: address,

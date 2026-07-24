@@ -13,17 +13,15 @@ export interface USPSAdapter {
 }
 
 /**
- * Factory function that returns the appropriate USPSAdapter implementation
- * based on the USPS_API_KEY environment variable.
- *
- * - Returns MockUSPSAdapter when USPS_API_KEY is "mock"
- * - Returns RealUSPSAdapter (Census Geocoder, free) for all other cases
+ * Factory function that returns the appropriate USPSAdapter implementation.
+ * Uses real Census Geocoder by default. Only uses mock if USPS_API_KEY is explicitly "mock".
  */
 export function getUspsAdapter(): USPSAdapter {
   if (config.uspsApiKey === 'mock') {
     const { MockUSPSAdapter } = require('./mockUsps');
     return new MockUSPSAdapter();
   }
+  // Default: use real Census Geocoder (free, no key needed)
   const { RealUSPSAdapter } = require('./realUsps');
-  return new RealUSPSAdapter(config.uspsApiKey || 'census');
+  return new RealUSPSAdapter('census');
 }
