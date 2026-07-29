@@ -1,4 +1,4 @@
-# USPS Address Validation Service
+# Address Validation Service
 
 A dual-backend address validation service integrating with the USPS Address API. Provides single address validation, zipcode-city verification, bulk Excel upload processing, and LLM-powered unstructured address parsing.
 
