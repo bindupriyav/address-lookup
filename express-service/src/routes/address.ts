@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { StructuredAddress } from '../models/address';
 import { AddressValidator } from '../services/addressValidator';
+import { getCachedValidation, cacheValidation, logValidationRequest } from '../services/dynamoCache';
 
 const REQUIRED_FIELDS: (keyof StructuredAddress)[] = [
   'street_line_1',
@@ -55,7 +56,23 @@ export function createAddressRouter(addressValidator: AddressValidator): Router 
     };
 
     try {
+      // Check DynamoDB cache first
+      const cached = await getCachedValidation(address);
+      if (cached) {
+        // Log the cache hit
+        logValidationRequest('/api/v1/validate/address', address, cached, 200);
+        return res.status(200).json(cached);
+      }
+
+      // Cache miss — call USPS adapter
       const result = await addressValidator.validate(address);
+
+      // Store in DynamoDB cache for future lookups
+      cacheValidation(address, result);
+
+      // Log the request
+      logValidationRequest('/api/v1/validate/address', address, result, 200);
+
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
