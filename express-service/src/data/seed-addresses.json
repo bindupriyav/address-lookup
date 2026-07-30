@@ -1,0 +1,209 @@
+[
+  {
+    "street_line_1": "1600 Pennsylvania Ave NW",
+    "city": "Washington",
+    "state": "DC",
+    "zipcode": "20500",
+    "standardized": { "street_line_1": "1600 PENNSYLVANIA AVE NW", "city": "WASHINGTON", "state": "DC", "zipcode": "20500" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1 Apple Park Way",
+    "city": "Cupertino",
+    "state": "CA",
+    "zipcode": "95014",
+    "standardized": { "street_line_1": "1 APPLE PARK WAY", "city": "CUPERTINO", "state": "CA", "zipcode": "95014" },
+    "valid": true
+  },
+  {
+    "street_line_1": "350 Fifth Ave",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10118",
+    "standardized": { "street_line_1": "350 5TH AVE", "city": "NEW YORK", "state": "NY", "zipcode": "10118" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1 Infinite Loop",
+    "city": "Cupertino",
+    "state": "CA",
+    "zipcode": "95014",
+    "standardized": { "street_line_1": "1 INFINITE LOOP", "city": "CUPERTINO", "state": "CA", "zipcode": "95014" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1601 Willow Rd",
+    "city": "Menlo Park",
+    "state": "CA",
+    "zipcode": "94025",
+    "standardized": { "street_line_1": "1601 WILLOW RD", "city": "MENLO PARK", "state": "CA", "zipcode": "94025" },
+    "valid": true
+  },
+  {
+    "street_line_1": "410 Terry Ave N",
+    "city": "Seattle",
+    "state": "WA",
+    "zipcode": "98109",
+    "standardized": { "street_line_1": "410 TERRY AVE N", "city": "SEATTLE", "state": "WA", "zipcode": "98109" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1 Microsoft Way",
+    "city": "Redmond",
+    "state": "WA",
+    "zipcode": "98052",
+    "standardized": { "street_line_1": "1 MICROSOFT WAY", "city": "REDMOND", "state": "WA", "zipcode": "98052" },
+    "valid": true
+  },
+  {
+    "street_line_1": "233 S Wacker Dr",
+    "city": "Chicago",
+    "state": "IL",
+    "zipcode": "60606",
+    "standardized": { "street_line_1": "233 S WACKER DR", "city": "CHICAGO", "state": "IL", "zipcode": "60606" },
+    "valid": true
+  },
+  {
+    "street_line_1": "600 Congress Ave",
+    "street_line_2": "Suite 1400",
+    "city": "Austin",
+    "state": "TX",
+    "zipcode": "78701",
+    "standardized": { "street_line_1": "600 CONGRESS AVE", "street_line_2": "STE 1400", "city": "AUSTIN", "state": "TX", "zipcode": "78701" },
+    "valid": true
+  },
+  {
+    "street_line_1": "3500 Deer Creek Rd",
+    "city": "Palo Alto",
+    "state": "CA",
+    "zipcode": "94304",
+    "standardized": { "street_line_1": "3500 DEER CREEK RD", "city": "PALO ALTO", "state": "CA", "zipcode": "94304" },
+    "valid": true
+  },
+  {
+    "street_line_1": "100 Universal City Plz",
+    "city": "Universal City",
+    "state": "CA",
+    "zipcode": "91608",
+    "standardized": { "street_line_1": "100 UNIVERSAL CITY PLZ", "city": "UNIVERSAL CITY", "state": "CA", "zipcode": "91608" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1313 Disneyland Dr",
+    "city": "Anaheim",
+    "state": "CA",
+    "zipcode": "92802",
+    "standardized": { "street_line_1": "1313 DISNEYLAND DR", "city": "ANAHEIM", "state": "CA", "zipcode": "92802" },
+    "valid": true
+  },
+  {
+    "street_line_1": "2101 Constitution Ave NW",
+    "city": "Washington",
+    "state": "DC",
+    "zipcode": "20418",
+    "standardized": { "street_line_1": "2101 CONSTITUTION AVE NW", "city": "WASHINGTON", "state": "DC", "zipcode": "20418" },
+    "valid": true
+  },
+  {
+    "street_line_1": "11 Wall St",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10005",
+    "standardized": { "street_line_1": "11 WALL ST", "city": "NEW YORK", "state": "NY", "zipcode": "10005" },
+    "valid": true
+  },
+  {
+    "street_line_1": "77 Massachusetts Ave",
+    "city": "Cambridge",
+    "state": "MA",
+    "zipcode": "02139",
+    "standardized": { "street_line_1": "77 MASSACHUSETTS AVE", "city": "CAMBRIDGE", "state": "MA", "zipcode": "02139" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1 Hacker Way",
+    "city": "Menlo Park",
+    "state": "CA",
+    "zipcode": "94025",
+    "standardized": { "street_line_1": "1 HACKER WAY", "city": "MENLO PARK", "state": "CA", "zipcode": "94025" },
+    "valid": true
+  },
+  {
+    "street_line_1": "2300 Traverwood Dr",
+    "city": "Ann Arbor",
+    "state": "MI",
+    "zipcode": "48105",
+    "standardized": { "street_line_1": "2300 TRAVERWOOD DR", "city": "ANN ARBOR", "state": "MI", "zipcode": "48105" },
+    "valid": true
+  },
+  {
+    "street_line_1": "500 Howard St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zipcode": "94105",
+    "standardized": { "street_line_1": "500 HOWARD ST", "city": "SAN FRANCISCO", "state": "CA", "zipcode": "94105" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1355 Market St",
+    "street_line_2": "Suite 900",
+    "city": "San Francisco",
+    "state": "CA",
+    "zipcode": "94103",
+    "standardized": { "street_line_1": "1355 MARKET ST", "street_line_2": "STE 900", "city": "SAN FRANCISCO", "state": "CA", "zipcode": "94103" },
+    "valid": true
+  },
+  {
+    "street_line_1": "1 World Trade Center",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10007",
+    "standardized": { "street_line_1": "1 WORLD TRADE CENTER", "city": "NEW YORK", "state": "NY", "zipcode": "10007" },
+    "valid": true
+  },
+  {
+    "street_line_1": "12738 University Club Dr",
+    "street_line_2": "Apt 201",
+    "city": "Tampa",
+    "state": "FL",
+    "zipcode": "33612",
+    "standardized": { "street_line_1": "12738 UNIVERSITY CLUB DR", "street_line_2": "APT 201", "city": "TAMPA", "state": "FL", "zipcode": "33612" },
+    "valid": true
+  },
+  {
+    "street_line_1": "99999 Nonexistent Blvd",
+    "city": "Faketown",
+    "state": "ZZ",
+    "zipcode": "00000",
+    "standardized": null,
+    "valid": false,
+    "error_message": "Address not found in USPS database"
+  },
+  {
+    "street_line_1": "123 INVALID Street",
+    "city": "Nowhere",
+    "state": "CA",
+    "zipcode": "90210",
+    "standardized": null,
+    "valid": false,
+    "error_message": "Address not found in USPS database"
+  },
+  {
+    "street_line_1": "000 Bogus Rd",
+    "city": "Springfield",
+    "state": "XX",
+    "zipcode": "99999",
+    "standardized": null,
+    "valid": false,
+    "error_message": "Address not found in USPS database"
+  },
+  {
+    "street_line_1": "1 Main St",
+    "city": "Zombieville",
+    "state": "QQ",
+    "zipcode": "11111",
+    "standardized": null,
+    "valid": false,
+    "error_message": "Invalid state code"
+  }
+]
